@@ -19,6 +19,16 @@ assert(2=(TwoListDeque.size qdillon));;
 
 assert(2=(TwoListDeque.peek_first qdillon));;
 
+assert([2,1] = (TwoListDeque.to_list qdillon));;
+
+let q_last_added = TwoListDeque.add_last 3 qdillon;;
+
+assert(3 = (TwoListDeque.peek_last q_last_added));;
+
+let q_last_removed = TwoListDeque.remove_last q_last_added;;
+
+assert(2 = (TwoListDeque.size q_last_removed));;
+
 (* Dillon's Tests *)
 
 
