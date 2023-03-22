@@ -215,3 +215,50 @@ let t6 = assert(TwoListDeque.peek_last test = 4)
 (* ! lev's test end ! *)
 
 
+let tldq = TwoListDeque.empty;;
+assert(0=(TwoListDeque.size tldq));;
+assert(TwoListDeque.is_empty tldq);;
+
+let tldq = TwoListDeque.(empty |> add_first 1 |> add_first 2 |> add_first 3);; (* [3,2,1]*)
+assert(3 = TwoListDeque.size tldq);;
+assert(3 = TwoListDeque.peek_first tldq);;
+assert(1 = TwoListDeque.peek_last tldq);;
+let tldq = tldq |> TwoListDeque.add_last 5;; (* [3,2,1,5]*)
+assert(5 = TwoListDeque.peek_last tldq);;
+
+let tldq = tldq |> TwoListDeque.remove_first;; (* [2,1,5]*)
+assert(2 = TwoListDeque.peek_first tldq);;
+assert(5 = TwoListDeque.peek_last tldq);;
+
+let tldq = tldq |> TwoListDeque.remove_last;; (* [2,1]*)
+assert(2 = TwoListDeque.peek_first tldq);;
+assert(1 = TwoListDeque.peek_last tldq);;
+assert(2 = TwoListDeque.size tldq);;
+assert( [2;1] = TwoListDeque.to_list tldq);;
+
+let tldq = tldq |> TwoListDeque.add_first 7 |>  TwoListDeque.add_last 5 |> TwoListDeque.add_last 9 |> TwoListDeque.add_last 101;; (* [7;2;1;5;9;101]*)
+assert(7 = TwoListDeque.peek_first tldq);;
+assert(101 = TwoListDeque.peek_last tldq);;
+assert(6 = TwoListDeque.size tldq);;
+assert( [7;2;1;5;9;101] = TwoListDeque.to_list tldq);;
+
+let tldq = tldq |> TwoListDeque.map (fun mb -> mb + 2);; (* [9;4;3;7;11;103]*)
+assert(9 = TwoListDeque.peek_first tldq);;
+assert(103 = TwoListDeque.peek_last tldq);;
+assert(6 = TwoListDeque.size tldq);;
+assert([9;4;3;7;11;103] = TwoListDeque.to_list tldq);;
+
+let tldq = tldq |> TwoListDeque.filter (fun mb -> mb mod 3 = 0);; (* [9;3]*)
+assert(9 = TwoListDeque.peek_first tldq);;
+assert(3 = TwoListDeque.peek_last tldq);;
+assert(2 = TwoListDeque.size tldq);;
+assert([9;3] = TwoListDeque.to_list tldq);;
+
+let tldq = tldq |> TwoListDeque.add_first 1 |>  TwoListDeque.add_last 0 |> TwoListDeque.add_last 0 |> TwoListDeque.add_last 87;; (* [1;9;3;0;0;87]*)
+assert(1 = TwoListDeque.peek_first tldq);;
+assert(87 = TwoListDeque.peek_last tldq);;
+assert(6 = TwoListDeque.size tldq);;
+assert( [1;9;3;0;0;87] = TwoListDeque.to_list tldq);;
+assert(  100 = TwoListDeque.fold_from_first_forward (+) 0 tldq);;
+
+
