@@ -25,6 +25,17 @@ assert([1] = add_first_1);;
 let add_first_2 = TwoListDeque.(add_first 2 deqeu_1);;
 assert([1; 2] = add_first_2);;
 
+let greatest_element x y =
+  match (x > y) with
+  | true -> x 
+  | false -> y;;
+
+let fold_from_first_forward_1 = 2 = TwoListDeque.(fold_from_first_forward greatest_element 0 deque_2);;
+assert(fold_from_first_forward_1);;
+
+let fold_from_last_backward_1 = 2 = TwoListDeque.(fold_from_last_backward greatest_element deque_2 0);;
+assert(fold_from_last_backward_1);;
+
 
 (* peeking an empty deque returns empty *)
 let q2 = TwoListDeque.empty;;
