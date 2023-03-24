@@ -272,4 +272,38 @@ assert(6 = TwoListDeque.size tldq);;
 assert( [1;9;3;0;0;87] = TwoListDeque.to_list tldq);;
 assert(  100 = TwoListDeque.fold_from_first_forward (+) 0 tldq);;
 
+(* Darius's test cases *)
+let queue = TwoListDeque.empty;;
+assert(0=(TwoListDeque.size queue));;
+assert(TwoListDeque.is_empty queue);;
 
+(* add_first x100 *)
+let rec loop_test i queue =
+    assert(i=(TwoListDeque.size queue));
+    assert((TwoListDeque.is_empty queue) == false);
+    match i with
+    | 100 -> queue
+    | _ -> loop_test (i+1) (TwoListDeque.add_first i queue) in
+loop_test 1 (TwoListDeque.add_first 1 TwoListDeque.empty);;
+
+(* add_last x100 *)
+let rec loop_test i queue =
+    assert(i=(TwoListDeque.size queue));
+    assert((TwoListDeque.is_empty queue) == false);
+    match i with
+    | 100 -> queue
+    | _ -> loop_test (i+1) (TwoListDeque.add_last i queue) in
+loop_test 1 (TwoListDeque.add_last 1 TwoListDeque.empty);;
+
+(* add_first then add_last x100 *)
+let rec loop_test i queue =
+    assert(i=(TwoListDeque.size queue));
+    assert((TwoListDeque.is_empty queue) == false);
+    match i with
+    | 100 -> queue
+    | _ -> loop_test (i+1) 
+        (if i mod 2 == 0 then 
+            TwoListDeque.add_last i queue
+        else 
+            TwoListDeque.add_first i queue) in
+loop_test 1 (TwoListDeque.add_last 1 TwoListDeque.empty);;
